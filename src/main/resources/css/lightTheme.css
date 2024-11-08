@@ -10,6 +10,16 @@
     -fx-pref-width:200px;
     -fx-pref-height: 50px;
 }
+.incorrectField {
+    -fx-fill: #ff6b6b;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+
+}
+
+
+
+
 
 .left_pane {
     -fx-background-color: #a73;
@@ -105,3 +115,4 @@
 	-fx-background-radius: 2em;
 
 }
+

@@ -1,6 +1,12 @@
 .anchor_pane {
     -fx-background-color: black;
 }
+.incorrectField {
+    -fx-fill: #ff6b6b;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+
+}
 
 .db_btn {
     -fx-background-color: #555;
@@ -123,3 +129,4 @@
 	-fx-background-radius: 2em;
 
 }
+

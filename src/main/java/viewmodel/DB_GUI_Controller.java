@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Person;
@@ -29,6 +30,16 @@ import java.util.ResourceBundle;
 
 public class DB_GUI_Controller implements Initializable {
 
+    @FXML
+    public Text incorrectField;
+    @FXML
+    public Button clearBtn;
+    @FXML
+    public Button addBtn;
+    @FXML
+    public Button deleteBtn;
+    @FXML
+    public Button editBtn;
     @FXML
     TextField first_name, last_name, department, major, email, imageURL;
     @FXML
@@ -47,6 +58,8 @@ public class DB_GUI_Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            editBtn.setDisable(true);
+            deleteBtn.setDisable(true);
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
             tv_fn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
             tv_ln.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -59,18 +72,41 @@ public class DB_GUI_Controller implements Initializable {
         }
     }
 
+
     @FXML
     protected void addNewRecord() {
+            if(isFormValid()) {
+                Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
+                        major.getText(), email.getText(), imageURL.getText());
+                cnUtil.insertUser(p);
+                cnUtil.retrieveId(p);
+                p.setId(cnUtil.retrieveId(p));
+                data.add(p);
+                clearForm();
+                incorrectField.setText("");
 
-            Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
-                    major.getText(), email.getText(), imageURL.getText());
-            cnUtil.insertUser(p);
-            cnUtil.retrieveId(p);
-            p.setId(cnUtil.retrieveId(p));
-            data.add(p);
-            clearForm();
+            }
+            else{
+                incorrectField.setText("One or more fields entered incorrectly, please try again");
+                System.out.println("Invalid");
+            }
 
     }
+    private boolean isFormValid(){
+
+        String nameRegex = "^[a-zA-Z\\s\\-'.]{1,100}$";
+        String deptMajorRegex = "^[a-zA-Z0-9\\s&,'-().]{1,150}$";
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,20}$";
+
+        boolean isValidFirstName = first_name.getText().matches(nameRegex);
+        boolean isValidLastName = last_name.getText().matches(nameRegex);
+        boolean isValidDepartment = department.getText().matches(deptMajorRegex);
+        boolean isValidMajor = major.getText().matches(deptMajorRegex);
+        boolean isValidEmail = email.getText().matches(emailRegex);
+
+        return isValidFirstName && isValidLastName && isValidDepartment && isValidMajor && isValidEmail;
+    }
+
 
     @FXML
     protected void clearForm() {
@@ -116,23 +152,36 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     protected void editRecord() {
-        Person p = tv.getSelectionModel().getSelectedItem();
-        int index = data.indexOf(p);
-        Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
-                major.getText(), email.getText(),  imageURL.getText());
-        cnUtil.editUser(p.getId(), p2);
-        data.remove(p);
-        data.add(index, p2);
-        tv.getSelectionModel().select(index);
+
+            Person p = tv.getSelectionModel().getSelectedItem();
+            if(p != null && isFormValid()) {
+
+                int index = data.indexOf(p);
+                Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
+                        major.getText(), email.getText(), imageURL.getText());
+                cnUtil.editUser(p.getId(), p2);
+                data.remove(p);
+                data.add(index, p2);
+                tv.getSelectionModel().select(index);
+                incorrectField.setText("");
+            }
+            else{
+                incorrectField.setText("One or more fields entered incorrectly, please try again");
+                System.out.println("Invalid");
+            }
+
     }
 
     @FXML
     protected void deleteRecord() {
         Person p = tv.getSelectionModel().getSelectedItem();
+        if(p != null) {
+
         int index = data.indexOf(p);
         cnUtil.deleteRecord(p);
         data.remove(index);
         tv.getSelectionModel().select(index);
+        }
     }
 
     @FXML
@@ -150,6 +199,8 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     protected void selectedItemTV(MouseEvent mouseEvent) {
+        editBtn.setDisable(false);
+        deleteBtn.setDisable(false);
         Person p = tv.getSelectionModel().getSelectedItem();
         first_name.setText(p.getFirstName());
         last_name.setText(p.getLastName());
