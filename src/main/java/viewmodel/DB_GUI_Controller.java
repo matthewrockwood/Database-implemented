@@ -71,6 +71,21 @@ public class DB_GUI_Controller implements Initializable {
             throw new RuntimeException(e);
         }
     }
+    @FXML
+    public void OpenFile(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
+        File f=fileChooser.showOpenDialog(menuBar.getScene().getWindow());
+
+        //TODO - read all from file and add it to the database
+
+    }
+    @FXML
+    public void exportFile(ActionEvent actionEvent) {
+// Get the data from the getData method and export the data.
+    }
+
 
 
     @FXML
