@@ -25,6 +25,7 @@ import service.MyLogger;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -40,8 +41,9 @@ public class DB_GUI_Controller implements Initializable {
     public Button deleteBtn;
     @FXML
     public Button editBtn;
+    public ChoiceBox major2;
     @FXML
-    TextField first_name, last_name, department, major, email, imageURL;
+    TextField first_name, last_name, department,  email, imageURL;
     @FXML
     ImageView img_view;
     @FXML
@@ -58,6 +60,11 @@ public class DB_GUI_Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+
+            major2.getItems().add("Major");
+            major2.getItems().addAll(Major.values());
+            major2.getSelectionModel().selectFirst();
+
             editBtn.setDisable(true);
             deleteBtn.setDisable(true);
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -92,7 +99,7 @@ public class DB_GUI_Controller implements Initializable {
     protected void addNewRecord() {
             if(isFormValid()) {
                 Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
-                        major.getText(), email.getText(), imageURL.getText());
+                        major2.getValue().toString(), email.getText(), imageURL.getText());
                 cnUtil.insertUser(p);
                 cnUtil.retrieveId(p);
                 p.setId(cnUtil.retrieveId(p));
@@ -116,10 +123,10 @@ public class DB_GUI_Controller implements Initializable {
         boolean isValidFirstName = first_name.getText().matches(nameRegex);
         boolean isValidLastName = last_name.getText().matches(nameRegex);
         boolean isValidDepartment = department.getText().matches(deptMajorRegex);
-        boolean isValidMajor = major.getText().matches(deptMajorRegex);
+        boolean isValidMajor = !Objects.equals(major2.getValue().toString(), "Major");
         boolean isValidEmail = email.getText().matches(emailRegex);
 
-        return isValidFirstName && isValidLastName && isValidDepartment && isValidMajor && isValidEmail;
+        return isValidFirstName && isValidLastName && isValidMajor && isValidDepartment && isValidEmail;
     }
 
 
@@ -128,7 +135,7 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText("");
         last_name.setText("");
         department.setText("");
-        major.setText("");
+       // major.setText("");
         email.setText("");
         imageURL.setText("");
     }
@@ -173,7 +180,7 @@ public class DB_GUI_Controller implements Initializable {
 
                 int index = data.indexOf(p);
                 Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
-                        major.getText(), email.getText(), imageURL.getText());
+                        major2.getValue().toString(), email.getText(), imageURL.getText());
                 cnUtil.editUser(p.getId(), p2);
                 data.remove(p);
                 data.add(index, p2);
@@ -184,6 +191,7 @@ public class DB_GUI_Controller implements Initializable {
                 incorrectField.setText("One or more fields entered incorrectly, please try again");
                 System.out.println("Invalid");
             }
+
 
     }
 
@@ -197,6 +205,9 @@ public class DB_GUI_Controller implements Initializable {
         data.remove(index);
         tv.getSelectionModel().select(index);
         }
+
+        editBtn.setDisable(true);
+        deleteBtn.setDisable(true);
     }
 
     @FXML
@@ -220,7 +231,8 @@ public class DB_GUI_Controller implements Initializable {
         first_name.setText(p.getFirstName());
         last_name.setText(p.getLastName());
         department.setText(p.getDepartment());
-        major.setText(p.getMajor());
+      // major.setText(p.getMajor());
+        major2.setValue(p.getMajor());
         email.setText(p.getEmail());
         imageURL.setText(p.getImageURL());
     }
@@ -280,7 +292,7 @@ public class DB_GUI_Controller implements Initializable {
         });
     }
 
-    private static enum Major {Business, CSC, CPIS}
+    private static enum Major {Business, CSC, CPIS, PSY, PHI, MATH}
 
     private static class Results {
 
