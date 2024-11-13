@@ -73,7 +73,29 @@
                 </VBox>
             </left>
             <bottom>
-                <HBox prefHeight="30.0" prefWidth="892.0" styleClass="admin_section" BorderPane.alignment="CENTER" />
+                <HBox fx:id="Hbox" prefHeight="30.0" prefWidth="892.0" styleClass="status_bar" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="223.0">
+                     <children>
+                        <Text fx:id="sys_txt1" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Sys_bottomtxt" text="System Ready" textAlignment="CENTER" wrappingWidth="220.85416412353516" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="223.0">
+                     <children>
+                        <Text fx:id="sys_txt2" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Sys_bottomtxt" textAlignment="CENTER" wrappingWidth="220.85416412353516" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="223.0">
+                     <children>
+                        <Text fx:id="sys_txt3" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Sys_bottomtxt" textAlignment="CENTER" wrappingWidth="220.85416412353516" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="223.0">
+                     <children>
+                        <Text fx:id="sys_txt4" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Sys_bottomtxt" text="Version 1.4.1" textAlignment="CENTER" wrappingWidth="220.85416412353516" />
+                     </children>
+                  </HBox>
+               </children></HBox>
             </bottom>
          <right>
                 <VBox alignment="CENTER" prefHeight="540.0" prefWidth="202.0" styleClass="text_field_pane" BorderPane.alignment="CENTER">

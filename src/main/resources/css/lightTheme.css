@@ -41,6 +41,12 @@
 .anchor_pane {
     -fx-background-color: #a73;
 }
+.status_bar {
+    -fx-background-color: #d3d3d3;
+    -fx-padding: 10px;
+    -fx-alignment: center-left;
+}
+
 
 .text_field_pane {
     -fx-background-color: #79dc05;

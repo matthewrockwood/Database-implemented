@@ -1,6 +1,7 @@
 package viewmodel;
 
 import dao.DbConnectivityClass;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,9 +17,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Person;
 import service.MyLogger;
 
@@ -41,7 +44,14 @@ public class DB_GUI_Controller implements Initializable {
     public Button deleteBtn;
     @FXML
     public Button editBtn;
+    @FXML
     public ChoiceBox major2;
+    @FXML
+    public Text sys_txt1;
+    @FXML
+    public Text sys_txt4;
+    @FXML
+    public Text sys_txt2;
     @FXML
     TextField first_name, last_name, department,  email, imageURL;
     @FXML
@@ -56,10 +66,16 @@ public class DB_GUI_Controller implements Initializable {
     private TableColumn<Person, String> tv_fn, tv_ln, tv_department, tv_major, tv_email;
     private final DbConnectivityClass cnUtil = new DbConnectivityClass();
     private final ObservableList<Person> data = cnUtil.getData();
+    PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            pause.setOnFinished(event -> {
+                sys_txt2.setText("");
+            });
+
 
             major2.getItems().add("Major");
             major2.getItems().addAll(Major.values());
@@ -97,6 +113,7 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     protected void addNewRecord() {
+
             if(isFormValid()) {
                 Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
                         major2.getValue().toString(), email.getText(), imageURL.getText());
@@ -106,12 +123,20 @@ public class DB_GUI_Controller implements Initializable {
                 data.add(p);
                 clearForm();
                 incorrectField.setText("");
+                sys_txt2.setText("Add Successful");
+                sys_txt2.setFill(Color.GREEN);
+                pause.play();
 
             }
             else{
                 incorrectField.setText("One or more fields entered incorrectly, please try again");
                 System.out.println("Invalid");
+                sys_txt2.setText("Addition Fail");
+                sys_txt2.setFill(Color.RED);
+                pause.play();
+
             }
+
 
     }
     private boolean isFormValid(){
@@ -186,10 +211,17 @@ public class DB_GUI_Controller implements Initializable {
                 data.add(index, p2);
                 tv.getSelectionModel().select(index);
                 incorrectField.setText("");
+                sys_txt2.setText("Edit Successful");
+                sys_txt2.setFill(Color.GREEN);
+                pause.play();
             }
             else{
                 incorrectField.setText("One or more fields entered incorrectly, please try again");
                 System.out.println("Invalid");
+                sys_txt2.setText("Edit Unsuccessful");
+                sys_txt2.setFill(Color.RED);
+                pause.play();
+
             }
 
 
@@ -204,10 +236,15 @@ public class DB_GUI_Controller implements Initializable {
         cnUtil.deleteRecord(p);
         data.remove(index);
         tv.getSelectionModel().select(index);
+            sys_txt2.setText("Record Deleted");
+            sys_txt2.setFill(Color.RED);
+            editBtn.setDisable(true);
+            deleteBtn.setDisable(true);
+            pause.play();
+
         }
 
-        editBtn.setDisable(true);
-        deleteBtn.setDisable(true);
+
     }
 
     @FXML
