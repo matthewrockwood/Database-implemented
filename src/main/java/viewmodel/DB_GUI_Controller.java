@@ -94,7 +94,7 @@ public class DB_GUI_Controller implements Initializable {
         }
     }
     public void OpenFile(ActionEvent actionEvent) {
-        sys_txt2.setText("Loading..."); //TODO GET THIS TO WORK
+        sys_txt2.setText("Loading...");
 
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("File");
@@ -144,7 +144,7 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     public void exportFile(ActionEvent actionEvent) {
 
-        //TODO - when i close out of the file explorer, it doubles the data in the DB preview
+
         StringBuilder file = new StringBuilder();
 
 
@@ -207,34 +207,7 @@ public class DB_GUI_Controller implements Initializable {
 
 
     }
-    //overload the method
-    protected void addNewRecord(Person person) {
 
-        if(isFormValid()) {
-            Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
-                    major2.getValue().toString(), email.getText(), imageURL.getText());
-            cnUtil.insertUser(p);
-            cnUtil.retrieveId(p);
-            p.setId(cnUtil.retrieveId(p));
-            data.add(p);
-            clearForm();
-            incorrectField.setText("");
-            sys_txt2.setText("Add Successful");
-            sys_txt2.setFill(Color.GREEN);
-            pause.play();
-
-        }
-        else{
-            incorrectField.setText("One or more fields entered incorrectly, please try again");
-            System.out.println("Invalid");
-            sys_txt2.setText("Addition Fail");
-            sys_txt2.setFill(Color.RED);
-            pause.play();
-
-        }
-
-
-    }
     private boolean isFormValid(){
 
         String nameRegex = "^[a-zA-Z\\s\\-'.]{1,100}$";

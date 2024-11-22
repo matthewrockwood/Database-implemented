@@ -4,11 +4,14 @@ import dao.DbConnectivityClass;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 
 public class MainApplication extends Application {
 
@@ -62,6 +65,20 @@ public class MainApplication extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static void ChangeScreen(String fxml, int x, int y, Node currentNode) throws IOException {
+
+        // Get the current stage and close it
+        Stage currentStage = (Stage) currentNode.getScene().getWindow();
+        currentStage.close();
+
+        // Open the new stage with the new screen (fxml) and dimensions (x, y)
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(fxml));
+        Scene scene = new Scene(fxmlLoader.load(), x, y);
+        Stage stage = new Stage();
+        stage.setTitle("Finance Application");
+        stage.setScene(scene);
+        stage.show();
     }
     Thread thread = new Thread(()->{
         System.out.println("hello");

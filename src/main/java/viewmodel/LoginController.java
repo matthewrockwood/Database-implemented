@@ -1,5 +1,6 @@
 package viewmodel;
 
+import dao.DbConnectivityClass;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,16 +9,22 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+import service.UserSession;
 
 
 public class LoginController {
 
-
+    private final DbConnectivityClass cnUtil = new DbConnectivityClass();
+    @FXML
+    public TextField usernameTextField;
+    @FXML
+    public PasswordField passwordTextField;
     @FXML
     private GridPane rootpane;
     public void initialize() {
@@ -45,19 +52,25 @@ public class LoginController {
                 new BackgroundPosition(Side.LEFT, 0, true, Side.BOTTOM, 0, true),
                 new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true));
     }
+
     @FXML
     public void login(ActionEvent actionEvent) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
-            Scene scene = new Scene(root, 900, 600);
-            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
-            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+       UserSession userSession= UserSession.getInstance(usernameTextField.getText(),passwordTextField.getText());
+       // System.out.println(userSession.login());
+          try {
+
+              Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
+              Scene scene = new Scene(root, 900, 600);
+              scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+              Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+              window.setScene(scene);
+              window.show();
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+
+      }
+
 
     public void signUp(ActionEvent actionEvent) {
         try {
