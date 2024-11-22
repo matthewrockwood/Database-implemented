@@ -1,5 +1,11 @@
 package viewmodel;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import dao.DbConnectivityClass;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -510,8 +516,57 @@ public class DB_GUI_Controller implements Initializable {
         });
     }
 
-    public void exportPDF(ActionEvent event) {
+
+    @FXML
+    protected void exportPDF(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save PDF File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        File pdfFile = fileChooser.showSaveDialog(menuBar.getScene().getWindow());
+
+        if (pdfFile != null) {
+            try (FileOutputStream fos = new FileOutputStream(pdfFile)) {
+                Document document = new Document();
+                PdfWriter.getInstance(document, fos);
+                document.open();
+
+                // Add Title
+                document.add(new Paragraph("Database Export", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 16)));
+                document.add(new Paragraph("\n"));
+
+                // Add Table
+                PdfPTable pdfTable = new PdfPTable(6); // 6 columns for the fields
+                pdfTable.addCell("ID");
+                pdfTable.addCell("First Name");
+                pdfTable.addCell("Last Name");
+                pdfTable.addCell("Department");
+                pdfTable.addCell("Major");
+                pdfTable.addCell("Email");
+
+                for (Person person : data) {
+                    pdfTable.addCell(String.valueOf(person.getId()));
+                    pdfTable.addCell(person.getFirstName());
+                    pdfTable.addCell(person.getLastName());
+                    pdfTable.addCell(person.getDepartment());
+                    pdfTable.addCell(person.getMajor());
+                    pdfTable.addCell(person.getEmail());
+                }
+
+                document.add(pdfTable);
+                document.close();
+
+                sys_txt2.setText("PDF Exported Successfully!");
+                sys_txt2.setFill(Color.GREEN);
+                pause.play();
+            } catch (Exception e) {
+                sys_txt2.setText("PDF Export Failed!");
+                sys_txt2.setFill(Color.RED);
+                pause.play();
+                e.printStackTrace();
+            }
+        }
     }
+
 
     @FXML
     protected void deselect() {
