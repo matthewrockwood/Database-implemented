@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 public class DbConnectivityClass {
-    final static String DB_NAME="CSC311_Matthew_Rockwood";
+    final static String DB_NAME="RiotGamesDirectory";
         MyLogger lg= new MyLogger();
         final static String SQL_SERVER_URL = "jdbc:mysql://rockwoodcsc311server.mysql.database.azure.com";//update this server name
         final static String DB_URL = "jdbc:mysql://rockwoodcsc311server.mysql.database.azure.com/"+DB_NAME;//update this database name
