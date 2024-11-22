@@ -13,9 +13,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import service.UserSession;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class LoginController {
@@ -25,6 +31,8 @@ public class LoginController {
     public TextField usernameTextField;
     @FXML
     public PasswordField passwordTextField;
+    @FXML
+    public Text logintext;
     @FXML
     private GridPane rootpane;
     public void initialize() {
@@ -55,21 +63,57 @@ public class LoginController {
 
     @FXML
     public void login(ActionEvent actionEvent) {
-       UserSession userSession= UserSession.getInstance(usernameTextField.getText(),passwordTextField.getText());
-       // System.out.println(userSession.login());
-          try {
+        String usernameInput = usernameTextField.getText();
+        String passwordInput = passwordTextField.getText();
 
-              Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
-              Scene scene = new Scene(root, 900, 600);
-              scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
-              Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-              window.setScene(scene);
-              window.show();
-          } catch (Exception e) {
-              e.printStackTrace();
-          }
+        if (validateCredentials(usernameInput, passwordInput)) {
+            UserSession userSession = UserSession.getInstance(usernameInput, passwordInput);
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/view/db_interface_gui.fxml"));
+                Scene scene = new Scene(root, 900, 600);
+                scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+                Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            logintext.setText("Invalid");
 
-      }
+            System.out.println("Invalid username or password. Please try again.");
+        }
+    }
+
+
+    private boolean validateCredentials(String username, String password) {
+        String filePath = "preference.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            String currentUsername = null;
+            String currentPassword = null;
+
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (line.startsWith("Username:")) {
+                    currentUsername = line.substring(9).trim();
+                } else if (line.startsWith("Password:")) {
+                    currentPassword = line.substring(9).trim();
+                } else if (line.equals("--------------------------")) {
+
+                    if (username.equals(currentUsername) && password.equals(currentPassword)) {
+                        return true;
+                    }
+
+                    currentUsername = null;
+                    currentPassword = null;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 
     public void signUp(ActionEvent actionEvent) {

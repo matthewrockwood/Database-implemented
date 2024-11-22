@@ -76,7 +76,7 @@ public class DB_GUI_Controller implements Initializable {
     private final DbConnectivityClass cnUtil = new DbConnectivityClass();
     private final ObservableList<Person> data = cnUtil.getData();
     PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
-    Image image = new Image("file:C:/Users/matth/OneDrive/Desktop/Coding/CSC311_DB_UI_semesterlongproject/src/main/resources/images/riot.png");
+    //Image image = new Image("src/main/resources/images/riot.png");
 
 
     @Override
@@ -138,7 +138,7 @@ public class DB_GUI_Controller implements Initializable {
             });
 
 
-            img_view.setImage(image);
+            //img_view.setImage(image);
 
 
 

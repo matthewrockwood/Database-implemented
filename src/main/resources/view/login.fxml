@@ -93,6 +93,7 @@
          </image>
       </ImageView>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Created By Matthew Rockwood" wrappingWidth="560.0068359375" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <Text fx:id="logintext" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="165.0068359375" GridPane.rowIndex="5" />
     </children>
    <stylesheets>
       <URL value="@../css/lightTheme.css" />

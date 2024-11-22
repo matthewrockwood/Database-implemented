@@ -75,7 +75,7 @@
                             <children>
                                 <ImageView fx:id="img_view" fitHeight="111.0" fitWidth="122.0" layoutX="10.0" layoutY="11.0" onMouseClicked="#showImage" pickOnBounds="true" preserveRatio="true" styleClass="image_view">
                                     <image>
-                                        <Image url="@../images/profile.png" />
+                                        <Image url="@../images/riot.png" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -143,12 +143,12 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteRecord" styleClass="db_btn" text="Delete">
+                        <Button fx:id="clearBtn" minWidth="-Infinity" mnemonicParsing="false" onAction="#clearForm" styleClass="db_btn" text="Clear">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
                         </Button>
-                        <Button fx:id="clearBtn" minWidth="-Infinity" mnemonicParsing="false" onAction="#clearForm" styleClass="db_btn" text="Clear">
+                        <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#deleteRecord" styleClass="db_btn" text="Delete">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
