@@ -66,6 +66,7 @@ public class DB_GUI_Controller implements Initializable {
     private final DbConnectivityClass cnUtil = new DbConnectivityClass();
     private final ObservableList<Person> data = cnUtil.getData();
     PauseTransition pause = new PauseTransition(Duration.seconds(2.5));
+    Image image = new Image("file:C:/Users/matth/OneDrive/Desktop/Coding/CSC311_DB_UI_semesterlongproject/src/main/resources/images/riot.png");
 
 
     @Override
@@ -74,9 +75,11 @@ public class DB_GUI_Controller implements Initializable {
             pause.setOnFinished(event -> {
                 sys_txt2.setText("");
             });
+            img_view.setImage(image);
 
 
-            major2.getItems().add("Major");
+
+            major2.getItems().add("Position");
             major2.getItems().addAll(Major.values());
             major2.getSelectionModel().selectFirst();
 
@@ -116,7 +119,7 @@ public class DB_GUI_Controller implements Initializable {
                                 String major = fields[3];
                                 String email = fields[4];
 
-                                Person p = new Person(firstName, lastName, department, major, email, null);
+                                Person p = new Person(firstName, lastName, department, major, email);
                                 cnUtil.insertUser(p);
                                 p.setId(cnUtil.retrieveId(p));
                                 data.add(p);
@@ -184,7 +187,7 @@ public class DB_GUI_Controller implements Initializable {
 
             if(isFormValid()) {
                 Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
-                        major2.getValue().toString(), email.getText(), imageURL.getText());
+                        major2.getValue().toString(), email.getText());
                 cnUtil.insertUser(p);
                 cnUtil.retrieveId(p);
                 p.setId(cnUtil.retrieveId(p));
@@ -231,7 +234,7 @@ public class DB_GUI_Controller implements Initializable {
         department.setText("");
        // major.setText("");
         email.setText("");
-        imageURL.setText("");
+
     }
 
     @FXML
@@ -340,7 +343,7 @@ public class DB_GUI_Controller implements Initializable {
       // major.setText(p.getMajor());
         major2.setValue(p.getMajor());
         email.setText(p.getEmail());
-        imageURL.setText(p.getImageURL());
+        //imageURL.setText(p.getImageURL());
     }
 
     public void lightTheme(ActionEvent actionEvent) {
@@ -398,7 +401,7 @@ public class DB_GUI_Controller implements Initializable {
         });
     }
 
-    private static enum Major {Business, CSC, CPIS, PSY, PHI, MATH}
+    private static enum Major {Intern, Manager, Executive, Director, Programmer, Associate,Technician, Artist}
 
     private static class Results {
 

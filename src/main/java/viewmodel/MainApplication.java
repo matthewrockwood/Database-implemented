@@ -26,11 +26,11 @@ public class MainApplication extends Application {
     }
 
     public void start(Stage primaryStage) {
-        Image icon = new Image(getClass().getResourceAsStream("/images/DollarClouddatabase.png"));
+        Image icon = new Image(getClass().getResourceAsStream("/images/riot.png"));
         this.primaryStage = primaryStage;
         this.primaryStage.setResizable(false);
         primaryStage.getIcons().add(icon);
-        primaryStage.setTitle("FSC CSC311 _ Database Project");
+        primaryStage.setTitle("Riot Games Employee Directory");
         showScene1();
     }
 
@@ -52,7 +52,7 @@ public class MainApplication extends Application {
             Parent newRoot = FXMLLoader.load(getClass().getResource("/view/login.fxml").toURI().toURL());
             Scene currentScene = primaryStage.getScene();
             Parent currentRoot = currentScene.getRoot();
-            currentScene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+            currentScene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(3), currentRoot);
             fadeOut.setFromValue(1);
             fadeOut.setToValue(0);
@@ -76,7 +76,6 @@ public class MainApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(fxml));
         Scene scene = new Scene(fxmlLoader.load(), x, y);
         Stage stage = new Stage();
-        stage.setTitle("Finance Application");
         stage.setScene(scene);
         stage.show();
     }

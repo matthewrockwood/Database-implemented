@@ -251,7 +251,7 @@ public class DbConnectivityClass {
                 preparedStatement.setString(3, person.getDepartment());
                 preparedStatement.setString(4, person.getMajor());
                 preparedStatement.setString(5, person.getEmail());
-                preparedStatement.setString(6, person.getImageURL());
+                preparedStatement.setString(6, null);
                 int row = preparedStatement.executeUpdate();
                 if (row > 0) {
                     lg.makeLog("A new user was inserted successfully.");
@@ -274,7 +274,7 @@ public class DbConnectivityClass {
                 preparedStatement.setString(3, p.getDepartment());
                 preparedStatement.setString(4, p.getMajor());
                 preparedStatement.setString(5, p.getEmail());
-                preparedStatement.setString(6, p.getImageURL());
+                preparedStatement.setString(6, null);
                 preparedStatement.setInt(7, id);
                 preparedStatement.executeUpdate();
                 preparedStatement.close();

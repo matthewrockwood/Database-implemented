@@ -1,0 +1,97 @@
+/* Register Page Red Theme */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set background color to a light red shade */
+.root {
+    -fx-background-color: #ffe6e6;
+}
+
+/* Style for all text fields (input fields) */
+.text-field, .password-field {
+    -fx-background-color: #fff;
+    -fx-border-color: #e60000;
+    -fx-border-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+}
+
+/* Style for labels */
+.label {
+    -fx-text-fill: #cc0000;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+}
+
+/* Style for buttons */
+.button {
+    -fx-background-color: #e60000;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: #cc0000;
+}
+
+/* Container for the form */
+.form-container {
+    -fx-background-color: #fff;
+    -fx-padding: 30px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #e60000;
+    -fx-border-width: 2px;
+}
+
+/* Title text */
+.title {
+    -fx-text-fill: #cc0000;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-padding-bottom: 20px;
+}
+
+/* Spacing between form elements */
+.form-container > .input-container {
+    -fx-spacing: 15px;
+}
+
+/* Style for form sections (username, password, etc.) */
+.input-container {
+    -fx-alignment: center;
+}
+
+/* Red theme form field */
+.input-field {
+    -fx-background-color: #fff;
+    -fx-border-color: #cc0000;
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-border-radius: 5px;
+}
+
+/* Focused input field */
+.input-field:focused {
+    -fx-border-color: #990000;
+}
+
+/* Style for error messages */
+.error-message {
+    -fx-text-fill: #cc0000;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding-top: 5px;
+}

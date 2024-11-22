@@ -1,121 +1,112 @@
+.vbox {
+    -fx-background-color: #F5F5F5; /* Light grayish white for the VBox */
+    -fx-padding: 10px; /* Adding some padding for spacing */
+    -fx-spacing: 10px; /* Spacing between children inside the VBox */
+    -fx-alignment: center; /* Centering the content inside the VBox */
+}
+
 .db_btn {
-    -fx-background-color: #a73;
-    -fx-cursor: hand;
-    -fx-font-family: "Arial";
-    -fx-font-size: 15px;
+    -fx-background-color: linear-gradient(to right, #E74C3C, #C0392B); /* Gradient from bright red to dark red */
+    -fx-cursor: pointer; /* Pointer cursor on hover */
+    -fx-font-family: "Arial", sans-serif; /* Clean, modern font */
+    -fx-font-size: 16px; /* Slightly larger font size */
     -fx-text-alignment: center;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #FFFFFF; /* White text for contrast */
     -fx-alignment: CENTER;
-    -fx-background-radius: 10;
-    -fx-pref-width:200px;
-    -fx-pref-height: 50px;
+    -fx-background-radius: 12px; /* Rounded corners */
+    -fx-pref-width: 200px; /* Keeping original width */
+    -fx-pref-height: 50px; /* Keeping original height */
 }
+
 .incorrectField {
-    -fx-fill: #ff6b6b;
+    -fx-fill: #E74C3C; /* Bright red for error messages */
     -fx-font-weight: bold;
-    -fx-font-size: 14px;
-
+    -fx-font-size: 14px; /* Keeping original font size */
 }
-
 
 .left_pane {
-    -fx-background-color: #a73;
-    -fx-pref-width: 130px;
-    -fx-pref-height: 600px;
+    -fx-background-color: linear-gradient(to bottom, #C0392B, #9B2C2C); /* Gradient from dark red to deep red */
+    -fx-pref-width: 130px; /* Keeping original width */
+    -fx-pref-height: 600px; /* Keeping original height */
 }
 
 .admin_section {
-    -fx-background-color: #999;
+    -fx-background-color: linear-gradient(to bottom, #9B2C2C, #7F1D1D); /* Gradient from deep red to darker red */
 }
 
 .table_columns {
-    -fx-background-color: white;
-    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(to right, #F5B7B1, #FAD7A0); /* Soft peach gradient for columns */
+    -fx-text-fill: #7F1D1D; /* Darker red text color for readability */
 }
 
-
 .menu_bar {
-    -fx-background-color: #841;
+    -fx-background-color: linear-gradient(to right, #D9534F, #C0392B); /* Gradient from bright red to dark red */
 }
 
 .anchor_pane {
-    -fx-background-color: #a73;
-}
-.status_bar {
-    -fx-background-color: #d3d3d3;
-    -fx-padding: 10px;
-    -fx-alignment: center-left;
+    -fx-background-color: linear-gradient(to right, #E74C3C, #C0392B); /* Bold red gradient for the main pane */
 }
 
+.status_bar {
+    -fx-background-color: #BDC3C7; /* Light gray status bar */
+    -fx-padding: 10px; /* Padding for readability */
+    -fx-alignment: center-left; /* Text alignment */
+}
 
 .text_field_pane {
-    -fx-background-color: #79dc05;
-
+    -fx-background-color: linear-gradient(to right, #F7DC6F, #F4D03F); /* Soft yellow gradient for text fields */
 }
 
-.image_view{
-    -fx-background-color: yellow;
-    -fx-border-color: black;
-    -fx-border-width: 2;
+.image_view {
+    -fx-background-color: linear-gradient(to bottom, #F39C12, #F1C40F); /* Gradient from yellow-orange to golden yellow */
+    -fx-border-color: #D35400; /* Slightly darker border */
+    -fx-border-width: 2px; /* Border width for emphasis */
 }
-
-
-
 
 .table-view .column-header,
 .table-view .column-header-background .filler {
-    -fx-background-color:  #999999;
-     -fx-text-fill: black;
+    -fx-background-color: linear-gradient(to right, #D9534F, #C0392B); /* Red gradient matching the menu bar */
+    -fx-text-fill: white; /* White text for column headers */
 }
-.table-view .column-header .label{
-   -fx-text-fill: white;
-   -fx-font-weight: bold;
-   -fx-alignment: CENTER_LEFT;
-}
-.table-view .cell{
-   -fx-cell-size: 35;
-  -fx-alignment: center-left;
-  -fx-background-color: #FFFFFF;
-  -fx-border-color: #29292D;
-  -fx-text-fill: black;
-  -fx-alignment: CENTER_LEFT;
 
+.table-view .column-header .label {
+    -fx-text-fill: #FFFFFF; /* White text for column labels */
+    -fx-font-weight: bold; /* Bold column header text */
+    -fx-alignment: CENTER_LEFT; /* Left-align the header text */
 }
+
+.table-view .cell {
+    -fx-cell-size: 35px; /* Keeping original cell size */
+    -fx-alignment: center-left; /* Left-align the text in cells */
+    -fx-background-color: linear-gradient(to bottom, #F5B7B1, #FAD7A0); /* Gradient for cells from soft peach to light yellow */
+    -fx-border-color: #BDC3C7; /* Subtle border color for cells */
+    -fx-text-fill: #7F1D1D; /* Darker red text for cells */
+}
+
 .table-row-cell:selected {
-   -fx-background-color: whitesmoke;
-   -fx-text-background-color:  #33FF55;
-
-
+    -fx-background-color: linear-gradient(to bottom, #E74C3C, #C0392B); /* Gradient for selected row from red to dark red */
+    -fx-text-background-color: white; /* White text when selected */
 }
+
 .table-view:focused .table-row-cell:selected .table-cell {
-    -fx-background-color: lightBlue;
-    -fx-text-fill: grey;
-}
-/* scroll bar starts here */
-
-/* The increment and decrement button CSS class of scrollbar */
-.table-view .increment-button ,.table-view .decrement-button {
-    -fx-background-color:transparent;
-	-fx-background-radius: 2em;
-
+    -fx-background-color: linear-gradient(to bottom, #F39C12, #F1C40F); /* Gradient when focused from yellow-orange to golden yellow */
+    -fx-text-fill: #7F1D1D; /* Dark text when focused */
 }
 
-/* The main scrollbar **track** CSS class  */
-.table-view .scroll-bar:horizontal .track,
-.table-view .scroll-bar:vertical .track{
-	-fx-background-color: transparent;
-	-fx-border-color:derive( #FFFFFF,80%);
-
-	-fx-background-radius: 2em;
-	-fx-border-radius:2em;
+/* Remove scroll bar entirely */
+.table-view {
+    -fx-padding: 0; /* Remove padding to fit the table to the container */
 }
 
-/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
-.table-view .scroll-bar:horizontal .thumb,
-.table-view .scroll-bar:vertical .thumb {
-    -fx-background-color:derive( #FFFFFF,90%);
-	-fx-background-insets: 1, 0, 0;
-	-fx-background-radius: 2em;
-
+.table-view .scroll-bar:horizontal,
+.table-view .scroll-bar:vertical {
+    -fx-opacity: 0; /* Hides the scrollbars */
+    -fx-background-color: transparent; /* Ensures the scrollbar is not visible */
+    -fx-border-width: 0; /* Removes the border of the scrollbar */
 }
 
+.table-view .increment-button,
+.table-view .decrement-button {
+    -fx-background-color: transparent; /* Ensures scrollbar buttons are invisible */
+    -fx-border-width: 0; /* Removes border from buttons */
+}

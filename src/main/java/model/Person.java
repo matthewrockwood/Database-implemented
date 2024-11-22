@@ -7,18 +7,18 @@ public class Person {
     private String department;
     private String major;
     private String email;
-    private String imageURL;
+
 
     public Person() {
     }
 
-    public Person(String firstName, String lastName, String department, String major, String email,  String imageURL) {
+    public Person(String firstName, String lastName, String department, String major, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
         this.major = major;
         this.email = email;
-        this.imageURL = imageURL;
+
     }
 
     public Person(Integer id, String firstName, String lastName, String department, String major, String email,  String imageURL) {
@@ -28,7 +28,6 @@ public class Person {
         this.department = department;
         this.major = major;
         this.email = email;
-        this.imageURL = imageURL;
     }
 
     public String getEmail() {
@@ -83,13 +82,8 @@ public class Person {
         this.department = department;
     }
 
-    public String getImageURL() {
-        return imageURL;
-    }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
+
 
     @Override
     public String toString() {
