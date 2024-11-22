@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextArea layoutX="6.0" layoutY="51.0" prefHeight="343.0" prefWidth="584.0" text="Your text goes here " wrapText="true">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </TextArea>
-      <Label alignment="TOP_LEFT" layoutX="8.0" layoutY="11.0" prefHeight="44.0" prefWidth="542.0" text="Developer: MM mM">
+      <Label alignment="TOP_LEFT" layoutX="8.0" layoutY="11.0" prefHeight="44.0" prefWidth="542.0" text="About Riot Games">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
+      <Text layoutX="12.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Who we areRiot Games was founded in 2006 to develop, publish, and support the most player-focused games in the world. As we went from one game to many, we have expanded to over 4,500 Rioters across more than 20 offices around the world bringing a global perspective to the games we create and the characters in them. From the streets of Piltover to the Radianite labs of Alpha Earth, we are all about making games and serving the people who love them." wrappingWidth="575.13671875" />
    </children>
 </AnchorPane>

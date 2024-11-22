@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Person;
@@ -263,11 +264,14 @@ public class DB_GUI_Controller implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(root, 600, 500);
             stage.setScene(scene);
+            stage.setTitle("About");
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     protected void editRecord() {

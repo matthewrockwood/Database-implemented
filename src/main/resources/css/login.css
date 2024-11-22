@@ -1,84 +1,72 @@
-/* lightTheme.css */
-
-/* General Styling */
 * {
     -fx-font-family: Arial, sans-serif;
-    -fx-font-size: 18px; /* Increased default font size */
+    -fx-font-size: 18px;
 }
 
-/* Background styling for the root pane with a black to red gradient */
 #rootpane {
-    -fx-background-color: linear-gradient(to bottom, #000000, #ff4d4d); /* Gradient from black to red */
+    -fx-background-color: linear-gradient(to bottom, #000000, #ff4d4d);
 }
 
-/* Label Styling */
 .login_label {
     -fx-text-fill: #111386;
     -fx-font-weight: bold;
-    -fx-font-size: 24px; /* Increased font size */
+    -fx-font-size: 24px;
 }
 
-/* TextField and PasswordField styling */
 .login_text_field {
     -fx-background-color: white;
     -fx-border-color: #CCCCCC;
     -fx-border-radius: 5px;
     -fx-pref-width: 400px;
     -fx-prompt-text-fill: #999999;
-    -fx-padding: 10px; /* Increased padding for larger text */
-    -fx-font-size: 18px; /* Increased font size */
+    -fx-padding: 10px;
+    -fx-font-size: 18px;
 }
 
-/* Button Styling */
 .login_button {
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-background-radius: 5px;
     -fx-pref-width: 200px;
-    -fx-pref-height: 50px; /* Increased button height */
-    -fx-font-size: 22px; /* Increased font size */
+    -fx-pref-height: 50px;
+    -fx-font-size: 22px;
     -fx-cursor: hand;
 }
 
 #loginBtn {
-    -fx-background-color: #28a745; /* Green */
+    -fx-background-color: #28a745;
 }
 
 #signUpButton {
-    -fx-background-color: #dc3545; /* Red */
+    -fx-background-color: #dc3545;
 }
 
-/* HBox and VBox alignment and padding */
 hbox, vbox {
     -fx-alignment: center;
-    -fx-spacing: 15px; /* Increased spacing */
-    -fx-padding: 15px; /* Increased padding */
+    -fx-spacing: 15px;
+    -fx-padding: 15px;
 }
 
-/* Label Styling in HBox/VBox */
 hbox .login_title, vbox .login_text_field {
     -fx-alignment: center;
 }
 
-/* Title styling for the login screen */
 .login_title {
     -fx-text-fill: #111386;
-    -fx-font-size: 72px; /* Much larger font size */
+    -fx-font-size: 72px;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
     -fx-wrap-text: true;
     -fx-background-color: transparent;
 }
 
-/* Fade effect styling */
 .fade-transition {
     -fx-opacity: 0;
 }
 
-/* Error message styling */
 .incorrectField {
     -fx-text-fill: #ff6b6b;
-    -fx-font-size: 18px; /* Larger error text */
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-padding: 10px; /* Increased padding */
+    -fx-padding: 10px;
 }
