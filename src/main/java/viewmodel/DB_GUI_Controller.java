@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -52,6 +53,8 @@ public class DB_GUI_Controller implements Initializable {
     public Text sys_txt4;
     @FXML
     public Text sys_txt2;
+    public MenuItem exportPDFbtn;
+    public Button deselect;
     @FXML
     TextField first_name, last_name, department,  email, imageURL;
     @FXML
@@ -76,6 +79,59 @@ public class DB_GUI_Controller implements Initializable {
             pause.setOnFinished(event -> {
                 sys_txt2.setText("");
             });
+            tv.setEditable(true);
+
+            tv_fn.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_fn.setOnEditCommit(event -> {
+                Person person = event.getRowValue();
+                String newValue = event.getNewValue();
+                cnUtil.editUser(person.getId(), "first_name", newValue);
+                person.setFirstName(newValue);
+                tv_fn.getTableView().refresh();
+                first_name.setText(newValue);
+            });
+
+            tv_ln.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_ln.setOnEditCommit(event -> {
+                Person person = event.getRowValue();
+                String newValue = event.getNewValue();
+                cnUtil.editUser(person.getId(), "last_name", newValue);
+                person.setLastName(newValue);
+                tv_ln.getTableView().refresh();
+                last_name.setText(newValue);
+            });
+
+            tv_department.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_department.setOnEditCommit(event -> {
+                Person person = event.getRowValue();
+                String newValue = event.getNewValue();
+                cnUtil.editUser(person.getId(), "department", newValue);
+                person.setDepartment(newValue);
+                tv_department.getTableView().refresh();
+                department.setText(newValue);
+            });
+
+            tv_major.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_major.setOnEditCommit(event -> {
+                Person person = event.getRowValue();
+                String newValue = event.getNewValue();
+                cnUtil.editUser(person.getId(), "major", newValue);
+                person.setMajor(newValue);
+                tv_major.getTableView().refresh();
+                major2.setValue(newValue);
+            });
+
+            tv_email.setCellFactory(TextFieldTableCell.forTableColumn());
+            tv_email.setOnEditCommit(event -> {
+                Person person = event.getRowValue();
+                String newValue = event.getNewValue();
+                cnUtil.editUser(person.getId(), "email", newValue);
+                person.setEmail(newValue);
+                tv_email.getTableView().refresh();
+                email.setText(newValue);
+            });
+
+
             img_view.setImage(image);
 
 
@@ -84,6 +140,7 @@ public class DB_GUI_Controller implements Initializable {
             major2.getItems().addAll(Major.values());
             major2.getSelectionModel().selectFirst();
 
+            deselect.setDisable(true);
             editBtn.setDisable(true);
             deleteBtn.setDisable(true);
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -281,7 +338,7 @@ public class DB_GUI_Controller implements Initializable {
 
                 int index = data.indexOf(p);
                 Person p2 = new Person(index + 1, first_name.getText(), last_name.getText(), department.getText(),
-                        major2.getValue().toString(), email.getText(), imageURL.getText());
+                        major2.getValue().toString(), email.getText());
                 cnUtil.editUser(p.getId(), p2);
                 data.remove(p);
                 data.add(index, p2);
@@ -338,17 +395,65 @@ public class DB_GUI_Controller implements Initializable {
 
     @FXML
     protected void selectedItemTV(MouseEvent mouseEvent) {
-        editBtn.setDisable(false);
-        deleteBtn.setDisable(false);
-        Person p = tv.getSelectionModel().getSelectedItem();
-        first_name.setText(p.getFirstName());
-        last_name.setText(p.getLastName());
-        department.setText(p.getDepartment());
-      // major.setText(p.getMajor());
-        major2.setValue(p.getMajor());
-        email.setText(p.getEmail());
-        //imageURL.setText(p.getImageURL());
+        // Get the selected person from the table view
+        Person selectedPerson = tv.getSelectionModel().getSelectedItem();
+
+        if (selectedPerson != null) {
+            // Enable buttons and populate fields if a valid person is selected
+            editBtn.setDisable(false);
+            deleteBtn.setDisable(false);
+            deselect.setDisable(false);
+            first_name.setText(selectedPerson.getFirstName());
+            last_name.setText(selectedPerson.getLastName());
+            department.setText(selectedPerson.getDepartment());
+            major2.setValue(selectedPerson.getMajor()); // Assuming major2 is a ComboBox
+            email.setText(selectedPerson.getEmail());
+            // Uncomment and populate imageURL if needed
+            // imageURL.setText(selectedPerson.getImageURL());
+        }
+
+
+        if (mouseEvent.getClickCount() == 2) {
+            Random rand = new Random();
+
+
+            if (selectedPerson == null) {
+
+                Person newPerson = new Person("", "", "", "", ""); // Adjust constructor as needed
+
+
+                int index = data.size();
+                Person p2 = new Person(index + 1, "Placeholder", "Placeholder", "Placeholder",
+                        "Placeholder", "Placeholder" + (index + rand.nextInt()));
+
+
+                cnUtil.insertUser(p2);
+
+
+                data.add(p2);
+                first_name.setText(p2.getFirstName());
+                last_name.setText(p2.getLastName());
+                department.setText(p2.getDepartment());
+                major2.setValue(p2.getMajor());
+                email.setText(p2.getEmail());
+
+
+                Platform.runLater(() -> {
+                    tv.scrollTo(p2);
+                    tv.getSelectionModel().select(p2);
+                    tv.edit(data.indexOf(p2), tv_fn);
+                });
+
+
+                incorrectField.setText("");
+                sys_txt2.setText("Edit Button to Edit The New User");
+                sys_txt2.setFill(Color.GREEN);
+                pause.play();
+            }
+        }
     }
+
+
 
     public void lightTheme(ActionEvent actionEvent) {
         try {
@@ -404,6 +509,23 @@ public class DB_GUI_Controller implements Initializable {
                     results.fname + " " + results.lname + " " + results.major);
         });
     }
+
+    public void exportPDF(ActionEvent event) {
+    }
+
+    @FXML
+    protected void deselect() {
+        tv.getSelectionModel().clearSelection();
+        editBtn.setDisable(true);
+        deleteBtn.setDisable(true);
+        deselect.setDisable(true);
+        clearForm();
+        incorrectField.setText("");
+        sys_txt2.setText("Selection cleared");
+        sys_txt2.setFill(Color.BLUE);
+        pause.play();
+    }
+
 
     private static enum Major {Intern, Manager, Executive, Director, Programmer, Associate,Technician, Artist}
 

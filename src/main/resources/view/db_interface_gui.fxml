@@ -62,7 +62,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Export PDF">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Export" />
+                      <MenuItem fx:id="exportPDFbtn" mnemonicParsing="false" onAction="#exportPDF" text="Export" />
                     </items>
                   </Menu>
                     </menus>
@@ -138,11 +138,6 @@
                         <Insets bottom="40.0" right="20.0" top="40.0" />
                      </VBox.margin>
                   </Label>
-                        <Button fx:id="clearBtn" minWidth="-Infinity" mnemonicParsing="false" onAction="#clearForm" styleClass="db_btn" text="Clear">
-                            <VBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </VBox.margin>
-                        </Button>
                         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addNewRecord" styleClass="db_btn" text="Add">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -153,11 +148,17 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
                         </Button>
+                        <Button fx:id="clearBtn" minWidth="-Infinity" mnemonicParsing="false" onAction="#clearForm" styleClass="db_btn" text="Clear">
+                            <VBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </VBox.margin>
+                        </Button>
                         <Button fx:id="editBtn" mnemonicParsing="false" onAction="#editRecord" styleClass="db_btn" text="Edit">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </VBox.margin>
                         </Button>
+                  <Button fx:id="deselect" mnemonicParsing="false" onAction="#deselect" prefHeight="26.0" prefWidth="142.0" styleClass="db_btn" stylesheets="@../css/lightTheme.css" text="Deslect Row" />
                     </children>
                 </VBox>
          </right>

@@ -21,7 +21,7 @@ public class Person {
 
     }
 
-    public Person(Integer id, String firstName, String lastName, String department, String major, String email,  String imageURL) {
+    public Person(Integer id, String firstName, String lastName, String department, String major, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -41,7 +41,7 @@ public class DbConnectivityClass {
                     String major = resultSet.getString("major");
                     String email = resultSet.getString("email");
                     String imageURL = resultSet.getString("imageURL");
-                    data.add(new Person(id, first_name, last_name, department, major, email, imageURL));
+                    data.add(new Person(id, first_name, last_name, department, major, email));
                 }
                 preparedStatement.close();
                 conn.close();
@@ -283,8 +283,24 @@ public class DbConnectivityClass {
                 throw new RuntimeException(e);
             }
         }
+    public void editUser(int id, String fieldName, String newValue) {
+        connectToDatabase();
+        try {
+            String sql = "UPDATE users SET " + fieldName + "=? WHERE id=?";
+            Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, newValue);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            conn.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        public void deleteRecord(Person person) {
+
+    public void deleteRecord(Person person) {
             int id = person.getId();
             connectToDatabase();
             try {
@@ -322,4 +338,7 @@ public class DbConnectivityClass {
             lg.makeLog(String.valueOf(id));
             return id;
         }
+
+    public void updateUserField(Integer id, String major, String newValue) {
     }
+}
