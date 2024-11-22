@@ -5,6 +5,7 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,12 +26,10 @@ import javafx.util.Duration;
 import model.Person;
 import service.MyLogger;
 
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DB_GUI_Controller implements Initializable {
 
@@ -57,7 +56,7 @@ public class DB_GUI_Controller implements Initializable {
     @FXML
     ImageView img_view;
     @FXML
-    MenuBar menuBar;
+    public MenuBar menuBar;
     @FXML
     private TableView<Person> tv;
     @FXML
@@ -94,20 +93,89 @@ public class DB_GUI_Controller implements Initializable {
             throw new RuntimeException(e);
         }
     }
-    @FXML
     public void OpenFile(ActionEvent actionEvent) {
+        sys_txt2.setText("Loading..."); //TODO GET THIS TO WORK
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-        File f=fileChooser.showOpenDialog(menuBar.getScene().getWindow());
+        File f = fileChooser.showOpenDialog(menuBar.getScene().getWindow());
 
-        //TODO - read all from file and add it to the database
+        if (f != null) {
+            Task<Void> loadFileTask = new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            String[] fields = line.split(",");
+                            if (fields.length >= 5) {
+                                String firstName = fields[0];
+                                String lastName = fields[1];
+                                String department = fields[2];
+                                String major = fields[3];
+                                String email = fields[4];
 
+                                Person p = new Person(firstName, lastName, department, major, email, null);
+                                cnUtil.insertUser(p);
+                                p.setId(cnUtil.retrieveId(p));
+                                data.add(p);
+
+                                System.out.println(p);
+                            }
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            };
+
+            loadFileTask.setOnSucceeded(e -> {
+                sys_txt2.setText("Import Complete!");
+                sys_txt2.setFill(Color.GREEN);
+                pause.play();
+            });
+
+            new Thread(loadFileTask).start();
+        }
     }
+
     @FXML
     public void exportFile(ActionEvent actionEvent) {
-// Get the data from the getData method and export the data.
-    }
+
+        //TODO - when i close out of the file explorer, it doubles the data in the DB preview
+        StringBuilder file = new StringBuilder();
+
+
+        FileChooser fileChooser = new FileChooser();
+
+        fileChooser.setTitle("Save CSV File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv")
+        );
+        File f = fileChooser.showSaveDialog(menuBar.getScene().getWindow());
+        if(f!=null) {
+            for (int i = 0; i < data.size(); i++) {
+                file.append(data.get(i).getId()).append(",");
+                file.append(data.get(i).getFirstName()).append(',');
+                file.append(data.get(i).getLastName()).append(',');
+                file.append(data.get(i).getDepartment()).append(',');
+                file.append(data.get(i).getMajor()).append(',');
+                file.append(data.get(i).getEmail());
+                file.append("\n");
+            }
+            System.out.println(file);
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(f))) {
+                writer.write(file.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No file selected");
+        }
+        }
+
 
 
 
@@ -136,6 +204,34 @@ public class DB_GUI_Controller implements Initializable {
                 pause.play();
 
             }
+
+
+    }
+    //overload the method
+    protected void addNewRecord(Person person) {
+
+        if(isFormValid()) {
+            Person p = new Person(first_name.getText(), last_name.getText(), department.getText(),
+                    major2.getValue().toString(), email.getText(), imageURL.getText());
+            cnUtil.insertUser(p);
+            cnUtil.retrieveId(p);
+            p.setId(cnUtil.retrieveId(p));
+            data.add(p);
+            clearForm();
+            incorrectField.setText("");
+            sys_txt2.setText("Add Successful");
+            sys_txt2.setFill(Color.GREEN);
+            pause.play();
+
+        }
+        else{
+            incorrectField.setText("One or more fields entered incorrectly, please try again");
+            System.out.println("Invalid");
+            sys_txt2.setText("Addition Fail");
+            sys_txt2.setFill(Color.RED);
+            pause.play();
+
+        }
 
 
     }

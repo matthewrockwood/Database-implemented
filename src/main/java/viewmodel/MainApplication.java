@@ -13,7 +13,7 @@ import javafx.util.Duration;
 public class MainApplication extends Application {
 
     private static Scene scene;
-    private static DbConnectivityClass cnUtil;
+    public static DbConnectivityClass cnUtil;
     private Stage primaryStage;
 
     public static void main(String[] args) {
@@ -63,6 +63,10 @@ public class MainApplication extends Application {
             e.printStackTrace();
         }
     }
+    Thread thread = new Thread(()->{
+        System.out.println("hello");
+    },"matt");
+
 
 
 }

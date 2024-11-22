@@ -20,7 +20,7 @@ public class DbConnectivityClass {
         // Method to retrieve all data from the database and store it into an observable list to use in the GUI tableview.
 
 
-        public ObservableList<Person> getData() {
+        public  ObservableList<Person> getData() {
             connectToDatabase();
             try {
                 Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
